@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Image, ScrollView, Text, TouchableOpacity, TextInput
+import { StyleSheet, View, Image, ScrollView, Text, TouchableOpacity, TextInput, Alert
 } from 'react-native';
 import Constants from 'expo-constants';
 
@@ -38,13 +38,32 @@ const styles = StyleSheet.create({
 });
 
 const SignupScreen = ({ navigation }) => {
+
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [confirmPass, setConfirmPass] = React.useState('');
 
-  const app = () => {
-      navigation.navigate('Tab');
-  };
+    const AuthSignUp = async () => {
+        const response = await fetch ("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCByFR8hEpcZTJ5fbunxvax6ZtHdX01dgA", {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+                returnSecureToken: true
+            })
+        })
+        const resData = await response.json()
+        if (response.ok){
+          await navigation.navigate('Login')
+      } else {
+          Alert.alert ('An Error Occured!', resData.error.message, [{
+              text: 'Okay'
+          }])
+      }
+    }
 
   return (
     <ScrollView style={styles.container}>
@@ -64,31 +83,37 @@ const SignupScreen = ({ navigation }) => {
         <TextInput
             style={styles.inputView}
             value={email}
-            onChangeText={setEmail}
-            placeholder="Username"
-           
+            // onChangeText={setEmail}
+            placeholder="Email"
+            onChangeText= {(text) => {
+              setEmail(text)
+          }}
           />
         <TextInput
             style={styles.inputView}
             value={password}
-            onChangeText={setPassword}
+            // onChangeText={setPassword}
             placeholder="Password"
             secureTextEntry={true}
-        
+            onChangeText= {(text) => {
+              setPassword(text)
+          }}
           />
         <TextInput
             style={styles.inputView}
             value={confirmPass}
-            onChangeText={setConfirmPass}
+            // onChangeText={setConfirmPass}
             placeholder="Password"
             secureTextEntry={true}
-          
+            onChangeText= {(text) => {
+              setConfirmPass(text)
+          }}
           />
         </View>
 
         <TouchableOpacity
             style={styles.loginbutton}
-            onPress={app}
+            onPress={AuthSignUp}
           >
             <Text style={{ 
               color:"#000000",
@@ -98,5 +123,4 @@ const SignupScreen = ({ navigation }) => {
     </ScrollView>
   );
 };
-
 export default SignupScreen;

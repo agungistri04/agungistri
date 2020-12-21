@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  StyleSheet, View, ScrollView, Image, Text, TextInput, TouchableOpacity,
+  StyleSheet, View, ScrollView, Image, Text, TextInput, TouchableOpacity, Alert
 } from 'react-native';
 import Constants from 'expo-constants';
 
@@ -41,14 +41,30 @@ const styles = StyleSheet.create({
 });
 
 const LoginScreen = ({ navigation }) => {
-  View
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
-  const handlerLogin = () => {
-    navigation.navigate('Tab');
-  };
-
+  const AuthLogin = async () => {
+  const response = await fetch ("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCByFR8hEpcZTJ5fbunxvax6ZtHdX01dgA", {
+            method: "POST",
+            headers: {
+                'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+                email: email,
+                password: password,
+                returnSecureToken: true
+            })
+        })
+        const resData = await response.json()
+        if (response.ok){
+          await navigation.navigate('Tab')
+      } else {
+          Alert.alert ('An Error Occured!', resData.error.message, [{
+              text: 'Okay'
+          }])
+      }
+    }
   return (
     
     <ScrollView style={styles.container}>
@@ -56,24 +72,30 @@ const LoginScreen = ({ navigation }) => {
       <View style={{ paddingTop: 100 }}>
         <Text style={{ color: "white",fontSize: 40, fontWeight: 'bold', marginBottom:1, textAlign: "center" }}>S'Key </Text>
         <Text style={{color: "white", textAlign: "center", marginBottom: 50}}>(Service Key) </Text>
-
+      
       
       <Text style={{ color: "white",fontSize: 25, fontWeight: 'bold', marginBottom:20, textAlign: "center" }}>Login </Text>
         <View>
           <TextInput style={styles.inputView}
             value={email}
-            onChangeText={setEmail}
-            placeholder="Username"
+            // onChangeText={setEmail}
+            placeholder="Email"
+            onChangeText= {(text) => {
+              setEmail(text)
+          }}
           />
           <TextInput style={styles.inputView}
             value={password}
-            onChangeText={setPassword}
+            // onChangeText={setPassword}
             placeholder="Password"
             secureTextEntry={true}
+            onChangeText= {(text) => {
+              setPassword(text)
+          }}
           />
           <TouchableOpacity
             style={styles.loginbutton}
-            onPress={handlerLogin}
+            onPress={AuthLogin}
           >
             <Text style={{
               color: "black",
