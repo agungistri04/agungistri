@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "midnightblue",
-   
+
   },
   inputView: {
     width: "80%",
@@ -36,8 +36,6 @@ const styles = StyleSheet.create({
     marginRight: 40,
     marginLeft: 40,
   },
-
-
 });
 
 const LoginScreen = ({ navigation }) => {
@@ -45,53 +43,53 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = React.useState('');
 
   const AuthLogin = async () => {
-  const response = await fetch ("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCByFR8hEpcZTJ5fbunxvax6ZtHdX01dgA", {
-            method: "POST",
-            headers: {
-                'Content-type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: email,
-                password: password,
-                returnSecureToken: true
-            })
-        })
-        const resData = await response.json()
-        if (response.ok){
-          await navigation.navigate('Tab')
-      } else {
-          Alert.alert ('An Error Occured!', resData.error.message, [{
-              text: 'Okay'
-          }])
-      }
+    const response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCByFR8hEpcZTJ5fbunxvax6ZtHdX01dgA", {
+      method: "POST",
+      headers: {
+        'Content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        returnSecureToken: true
+      })
+    })
+    const resData = await response.json()
+    if (response.ok) {
+      await navigation.navigate('Tab')
+    } else {
+      Alert.alert('An Error Occured!', resData.error.message, [{
+        text: 'Okay'
+      }])
     }
+  }
   return (
-    
+
     <ScrollView style={styles.container}>
-      
+
       <View style={{ paddingTop: 100 }}>
-        <Text style={{ color: "white",fontSize: 40, fontWeight: 'bold', marginBottom:1, textAlign: "center" }}>S'Key </Text>
-        <Text style={{color: "white", textAlign: "center", marginBottom: 50}}>(Service Key) </Text>
-      
-      
-      <Text style={{ color: "white",fontSize: 25, fontWeight: 'bold', marginBottom:20, textAlign: "center" }}>Login </Text>
+        <Text style={{ color: "white", fontSize: 40, fontWeight: 'bold', marginBottom: 1, textAlign: "center" }}>S'Key </Text>
+        <Text style={{ color: "white", textAlign: "center", marginBottom: 50 }}>(Service Key) </Text>
+
+
+        <Text style={{ color: "white", fontSize: 25, fontWeight: 'bold', marginBottom: 20, textAlign: "center" }}>Login </Text>
         <View>
           <TextInput style={styles.inputView}
             value={email}
             // onChangeText={setEmail}
             placeholder="Email"
-            onChangeText= {(text) => {
+            onChangeText={(text) => {
               setEmail(text)
-          }}
+            }}
           />
           <TextInput style={styles.inputView}
             value={password}
             // onChangeText={setPassword}
             placeholder="Password"
             secureTextEntry={true}
-            onChangeText= {(text) => {
+            onChangeText={(text) => {
               setPassword(text)
-          }}
+            }}
           />
           <TouchableOpacity
             style={styles.loginbutton}

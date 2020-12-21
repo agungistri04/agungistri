@@ -3,6 +3,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
   StyleSheet, Text, View, Image,
 } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const styles = StyleSheet.create({
@@ -13,15 +14,15 @@ const styles = StyleSheet.create({
   },
 });
 
-const DetailsScreen = () => (
+const DetailsScreen = ({ navigation }) => (
   <View style={styles.container}>
     
       <View>
         <View style={{ padding: 50 }}>
           <Text style={{ fontSize: 25, fontWeight: 'bold', marginBottom: 5, marginTop:10, textAlign: "center" }}>Daftar Tukang Kunci </Text>
         </View>
-        
-      <Text  style={{ color: "black", marginTop:10, marginBottom:10, fontSize: 20, fontWeight: 'bold'}}>
+      <TouchableOpacity onPress={() => navigation.navigate('Form')}>
+        <Text  style={{ color: "black", marginTop:10, marginBottom:10, fontSize: 20, fontWeight: 'bold'}}>
        ‍●Dita Kunci 
         </Text>
         <Text style={{ color: "black"}}>
@@ -39,7 +40,9 @@ const DetailsScreen = () => (
         <Text style={{ color: "black"}}>
         No tlp :0813-3593-3070
         </Text>
+      </TouchableOpacity>
 
+      <TouchableOpacity onPress={() => navigation.navigate('Form')}>
         <Text style={{ color: "black", marginTop:30, marginBottom:10, fontSize: 20, fontWeight: 'bold'}}>
         ●Ahli Kunci 24 Jam
         </Text>
@@ -55,7 +58,9 @@ const DetailsScreen = () => (
         <Text style={{ color: "black"}}>
         No tlp :0813-3593-3070
         </Text>
-
+      </TouchableOpacity>
+      
+      <TouchableOpacity onPress={() => navigation.navigate('Form')}>
         <Text style={{ color: "black", marginTop:30, marginBottom:10, fontSize: 20, fontWeight: 'bold'}}>
         ●Aneka Kunci
         </Text>
@@ -77,6 +82,7 @@ const DetailsScreen = () => (
         <Text style={{ color: "black"}}>
          No tlp :0813-3875-9054
         </Text>
+        </TouchableOpacity>
 
       </View>
   </View>
