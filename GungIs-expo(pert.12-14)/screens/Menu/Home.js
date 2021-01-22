@@ -35,8 +35,15 @@ const HomeScreen = ({ navigation }) => (
         fontWeight: 'bold',textAlign: 'center', borderWidth:2, borderRadius: 10, borderColor:"white" ,padding:10, marginLeft:80, marginRight:80}}>
         Daftar Tukang Kunci
         </Text>
-    
+
+        <Text onPress={() => navigation.navigate('Input')} style={{ color: "black", marginTop:1, marginBottom:10, fontSize: 15, 
+        fontWeight: 'bold',textAlign: 'center', borderWidth:2, borderRadius: 10, borderColor:"white" ,padding:10, marginLeft:80, marginRight:80}}>
+        Daftar Pemesanan Kunci
+        </Text>
+
+
       </View>
+
  
   </View>
 );

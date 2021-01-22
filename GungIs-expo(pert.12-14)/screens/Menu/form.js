@@ -56,7 +56,7 @@ const FormDetail = () => {
             alert('Please provide a name')
         }
         else {
-            await firebase.db.collection('users').add({
+            await firebase.bd.ref('users').push({
                 name: state.name,
                 notelpon: state.notelpon,
                 alamat: state.alamat,
